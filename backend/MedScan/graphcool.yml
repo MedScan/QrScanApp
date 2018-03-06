@@ -19,6 +19,14 @@ types: ./types.graphql
 
 
 functions:
+
+  firebaseAuthentication:
+    handler:
+      code:
+        src: ./src/firebase/firebaseAuthentication.ts
+    type: resolver
+    schema: ./src/firebase/firebaseAuthentication.graphql
+
   hello:
     handler:
       code: src/hello.js
