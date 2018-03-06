@@ -1,0 +1,7 @@
+
+Instryctions
+    Set-up commands
+        npm installl
+        react-native link react-native-camera
+        react-native link react-native-qrcode-scanner
+        react-native link react-native-simple-toast

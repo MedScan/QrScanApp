@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MedScan</string>
+    <string name="facebook_app_id">175914156527813</string>
+    <string name="fb_login_protocol_scheme">fb175914156527813</string>
 </resources>

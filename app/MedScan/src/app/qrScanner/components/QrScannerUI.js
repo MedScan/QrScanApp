@@ -41,7 +41,7 @@ export default class QrScannerUI extends PureComponent {
 
     renderItem = () => {
         if(this.state.medicineCode) {
-            return <MedicineDetailUI medicineCode={this.state.medicineCode} tryAnotherMedicine={this.tryAnotherMedicine}/>;
+            return <MedicineDetailUI medicineCode={this.state.medicineCode} tryAnotherMedicine={this.tryAnotherMedicine} navigation={this.props.navigation}/>;
         } else {
             return this.renderScanner();
         }

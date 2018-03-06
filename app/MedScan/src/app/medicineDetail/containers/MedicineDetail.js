@@ -5,13 +5,21 @@ import { bindActionCreators } from "redux";
 import { medicineDetailDataAction } from "../actions";
 
 class MedicineDetail extends PureComponent {
+    constructor() {
+        super()
+        this.navigateToLogin = this.navigateToLogin.bind(this)
+    }
 
     componentDidMount() {
         this.props.fetchMedicineDetail(this.props.medicineCode);
     }
 
+    navigateToLogin = () => {
+        this.props.navigation.navigate("Login");
+    }
+
     render() {
-        return <MedicineDetailUI medicineCode={this.props.medicineCode} fetchMedicineDetails={this.props.fetchMedicineDetails} tryAnotherMedicine={this.props.tryAnotherMedicine}/>
+        return <MedicineDetailUI medicineCode={this.props.medicineCode} fetchMedicineDetails={this.props.fetchMedicineDetails} tryAnotherMedicine={this.props.tryAnotherMedicine} navigateToLogin={this.navigateToLogin}/>
     }
 }
 

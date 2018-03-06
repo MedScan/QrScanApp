@@ -24,26 +24,16 @@ export default class MedicineDetailUI extends PureComponent {
     }
 
     renderMedDetails = () => {
-        return <ScrollView>
-            <View style={[basicCompStyles.fullSize, basicCompStyles.padding10, {alignItems: 'flex-start', justifyContent: 'flex-start'}]}>
-                <Text style={[basicStyles.titleTextLight]}>{this.props.fetchMedicineDetails.detail.name}</Text>
-                {this.renderDetail('Describtion', this.props.fetchMedicineDetails.detail.description)}
+        return <View style={[basicCompStyles.fullSize, basicCompStyles.padding10, {alignItems: 'flex-start', justifyContent: 'flex-start'}]}>
+            <Text style={[basicStyles.titleTextLight]}>{this.props.fetchMedicineDetails.detail.name}</Text>
+            <ScrollView>
+                {this.renderDetail('Description', this.props.fetchMedicineDetails.detail.description)}
                 {this.renderDetail('Dosage', this.props.fetchMedicineDetails.detail.dosing)}
                 {this.renderDetail('Age limit', `Above ${this.props.fetchMedicineDetails.detail.ageLowerLimit}`)}
-                {/* <View key={'title'} style={[ {alignItems: 'flex-start', paddingTop: 20}]}>
-                    <Text style={basicStyles.headerTextLight}>{'Usage'}</Text>
-                    <FlatList
-                        key={'title'}
-                        data={this.props.fetchMedicineDetails.detail.defaultUsage}
-                        keyExtractor={(item, index) => index.toString()}
-                        style={{height: 150, backgroundColor: 'red'}}
-                        renderItem={({item}) => <Text style={basicStyles.mediumTextLight}>{`           ${item}`}</Text>}
-                    />
-                </View> */}
                 {this.renderListDetail('Side effets', this.props.fetchMedicineDetails.detail.sideEffects)}
                 {this.renderListDetail('Usage', this.props.fetchMedicineDetails.detail.defaultUsage)}
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     }
 
     renderNoDetails = () => {
@@ -68,6 +58,9 @@ export default class MedicineDetailUI extends PureComponent {
                     <Text style={[basicStyles.headerTextLight]}>Medicine details</Text>
                 </View>
             </View>
+            <TouchableOpacity style={basicStyles.curvedView} onPress={this.props.navigateToLogin}>
+                <Text style={basicStyles.buttonTextLight}>Login to check compatability</Text>
+            </TouchableOpacity>
             {this.renderItems()}
             <TouchableOpacity style={basicStyles.curvedView} onPress={this.props.tryAnotherMedicine}>
                 <Text style={basicStyles.buttonTextLight}>Scan another medicine</Text>
