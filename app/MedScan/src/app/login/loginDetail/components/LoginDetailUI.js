@@ -18,7 +18,7 @@ export default class LoginDetailUI extends PureComponent {
     
     constructor(props) {
         super(props);
-        this.state = {name: "", email: "", imageUrl: "", date:"2016-05-15"};
+        this.state = {name: "", email: "", imageUrl: "", date:""};
     }
 
     saveManualEntry = () => {
@@ -28,6 +28,8 @@ export default class LoginDetailUI extends PureComponent {
         } else if (!validateEmail(this.state.email)) {
             Toast.show("Please enter valid email id", Toast.LONG)
             this.refs.emailInput.focus(); 
+        } else if (this.state.date.length == 0) {
+            Toast.show("Please select your birth date", Toast.LONG)
         } else {
             this.props.saveUserDetails(this.state.name, this.state.email, this.state.imageUrl);
             // save in db
@@ -89,25 +91,25 @@ export default class LoginDetailUI extends PureComponent {
                 value={this.state.email}
             />
             <DatePicker
-                style={{width: 200}}
+                style={[ basicCompStyles.marginBottom15, {borderWidth : 0, alignSelf: 'flex-start'}]}
                 date={this.state.date}
                 mode="date"
-                placeholder="select date"
+                placeholder="Date of birth"
                 format="YYYY-MM-DD"
-                minDate="1900-01-01"
-                maxDate="2016-06-01"
+                maxDate="2018-01-01"
                 confirmBtnText="Confirm"
                 cancelBtnText="Cancel"
+                // showIcon={false}
                 customStyles={{
+                    dateInput: {borderWidth: 0, marginLeft: 36, justifyContent: 'center'},
+                    dateText: {color : Colors.IN_ACTIVE_ICON_COLOR},
+                    placeholderText: {color : Colors.IN_ACTIVE_ICON_COLOR},
                     dateIcon: {
                         position: 'absolute',
                         left: 0,
                         top: 4,
                         marginLeft: 0
                     },
-                    dateInput: {
-                        marginLeft: 36
-                    }
                 // ... You can check the source to find the other keys.
                 }}
                 onDateChange={(date) => {this.setState({date: date})}}

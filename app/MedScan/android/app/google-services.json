@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "957683561313-2obfsepgfnmujr6jkih96r3eb1rclsan.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.medscan",
+            "certificate_hash": "640c78405881ff85ca899115e648d4140f6c7db9"
+          }
+        },
+        {
           "client_id": "957683561313-fjabl6h2ulflpqph60vpjglqeanhqvhq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
