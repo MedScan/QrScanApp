@@ -26,10 +26,12 @@ export default class PhoneAuthUI extends Component {
   }
 
   componentDidMount() {
+    console.log("auto logged +++++ ");
     this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+        console.log("auto logged - ", user);
       if (user) {
-        user.getIdToken(false)
-        .then(token => {
+        console.log("auto logged - ", user);
+        user.getIdToken(false).then(token => {
           this.props.setTokenId(token);
         }).catch(error => {
           this.setState({
@@ -130,7 +132,7 @@ export default class PhoneAuthUI extends Component {
       <View style={basicCompStyles.fullSize}>
         {graphcoolTokenStatus != 2 && !confirmResult && <PhoneNumberInput signIn={this.signIn} phoneNumber={userPhoneNumber}/>}
         {graphcoolTokenStatus != 2 && confirmResult && <VerificationCodeInput confirmCode={this.confirmCode} resendCode={this.resendCode} changeNumber={this.changeNumber}/>}
-        {graphcoolTokenStatus == 2 && <LoginDetail signOut={this.signOut}>{children}</LoginDetail>}
+        {graphcoolTokenStatus == 2 && <LoginDetail signOut={this.signOut} navigation={this.props.navigation}></LoginDetail>}
       </View>
     );
   }

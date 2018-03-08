@@ -14,6 +14,14 @@ const validateEmail = (emailInput) => {
     return reg.test(emailInput)
 }
 
+const today = new Date(); 
+const dd = today.getDate(); 
+const mm = today.getMonth()+1; //January is 0! 
+const yyyy = today.getFullYear(); 
+if(dd<10){dd='0'+dd} 
+if(mm<10){mm='0'+mm} 
+const todayStr = yyyy+"-"+mm+"-"+dd; 
+
 export default class LoginDetailUI extends PureComponent {
     
     constructor(props) {
@@ -31,7 +39,10 @@ export default class LoginDetailUI extends PureComponent {
         } else if (this.state.date.length == 0) {
             Toast.show("Please select your birth date", Toast.LONG)
         } else {
-            this.props.saveUserDetails(this.state.name, this.state.email, this.state.imageUrl);
+            const dob = new Date(this.state.date);
+            const dobStr = dob.toISOString();
+            console.log("dob str", dobStr);
+            this.props.saveUserDetails(this.state.name, this.state.email, this.state.imageUrl, dobStr);
             // save in db
         }
     }
@@ -96,7 +107,7 @@ export default class LoginDetailUI extends PureComponent {
                 mode="date"
                 placeholder="Date of birth"
                 format="YYYY-MM-DD"
-                maxDate="2018-01-01"
+                maxDate={todayStr}
                 confirmBtnText="Confirm"
                 cancelBtnText="Cancel"
                 // showIcon={false}
@@ -115,7 +126,7 @@ export default class LoginDetailUI extends PureComponent {
                 onDateChange={(date) => {this.setState({date: date})}}
             />
             <TouchableOpacity style={[basicStyles.darkButton, basicCompStyles.alignSelfS]} onPress={this.saveManualEntry} >
-                <Text style={[basicStyles.headerText, basicCompStyles.alignSelfC]}>{"Continue"}</Text>
+                <Text style={[basicStyles.headerText, basicCompStyles.alignSelfC]}>{"Save"}</Text>
             </TouchableOpacity> 
             <TouchableOpacity style={[basicStyles.darkButtonRad0, basicCompStyles.absoluteBottomLeftRight0]} onPress={signOut} >
                 <Text style={[basicStyles.headerText, basicCompStyles.alignSelfC]}>{"Sign Out"}</Text>

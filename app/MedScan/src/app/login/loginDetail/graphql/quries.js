@@ -15,8 +15,8 @@ export const userByIdQuery = gql`
 `
 
 export const updateUser = gql`
-    mutation UpdateUser($id: ID!, $name: String, $email: String, $phoneNo: String, $imageUrl: String) {
-        updateUser(id: $id, name: $name, email: $email, phoneNo: $phoneNo, imageUrl: $imageUrl) {
+    mutation UpdateUser($id: ID!, $name: String, $email: String, $phoneNo: String, $imageUrl: String, $dateOfBirth: DateTime) {
+        updateUser(id: $id, name: $name, email: $email, phoneNo: $phoneNo, imageUrl: $imageUrl, dateOfBirth: $dateOfBirth) {
             id
             name
             email

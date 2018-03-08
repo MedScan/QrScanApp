@@ -13,6 +13,7 @@
     "react-apollo": "1.4.0",
     "react-native": "0.53.3",
     "react-native-camera": "^1.0.1",
+    "react-native-clean-project": "^1.0.7",
     "react-native-datepicker": "^1.6.0",
     "react-native-fbsdk": "^0.7.0",
     "react-native-firebase": "^3.2.7",

@@ -9,11 +9,12 @@ import LoginDetailUI from './LoginDetailUI';
 
 export default class LoginDetailCheck extends PureComponent {
     renderLoginCheck(children, signOut, userDetails, saveUserDetails) {
-        console.log("inside loader ---", userDetails)
-        if(userDetails.phoneNo != null) {
-            return React.Children.map(children, child => React.cloneElement(child, { signOut: signOut }))
-        } else {
-            return <LoginDetailUI signOut={signOut} saveUserDetails={saveUserDetails}/>
+        return <LoginDetailUI signOut={signOut} saveUserDetails={saveUserDetails}/>
+    }
+
+    componentWillReceiveProps(props) {
+        if(props.userDetails.phoneNo != null) {
+            props.navigation.goBack();
         }
     }
 
