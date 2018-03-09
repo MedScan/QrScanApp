@@ -12,6 +12,7 @@ export function setPhoneNumber(phoneNumber) {
 export function clearTokenId() {
     return (dispatch, getState) => {
         AsyncStorage.removeItem('token');
+        AsyncStorage.removeItem('user');
         dispatch({type: types.GRAPHCOOL_AUTH_TOKEN_CLEAR});
         dispatch({type: types.CLEAR_USER_ID});
         dispatch({type: types.CLEAR_USER_DETAILS});

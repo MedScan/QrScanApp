@@ -127,6 +127,9 @@ export const basicCompStyles = StyleSheet.create({
     darkBlueBG: {
         backgroundColor: "#673AB7"
     },
+    darkerBlueBG: {
+        backgroundColor: "#3a2068"
+    },
     
     
     Padding20: {
@@ -179,6 +182,11 @@ export const basicCompStyles = StyleSheet.create({
 export const basicStyles = {
     deviceFullView: [
         sizes.fullViewSize
+    ],
+    deviceFullViewBgCCC: [
+        sizes.fullViewSize,
+        basicCompStyles.darkerBlueBG,
+        basicCompStyles.flexColumnCC,
     ],
     absoluteTopFullDeviceWidth: [
         sizes.fullDeviceWidth,

@@ -12,16 +12,18 @@ export default class QrScannerUI extends PureComponent {
     constructor() {
         super()
         this.onScanFinished = this.onScanFinished.bind(this);
+        this.tryAnotherMedicine = this.tryAnotherMedicine.bind(this);
         this.state = { medicineCode: null };
     }
 
     onScanFinished = (data) => {
         console.log(data);
         this.setState({medicineCode : data});
-        this.props.navigation.navigate("MedicineDetails", {medicineCode: data});
+        this.props.navigation.navigate("MedicineDetails", {medicineCode: data, tryAnotherMedicine: this.tryAnotherMedicine});
     }
 
     tryAnotherMedicine = () => {
+        console.log("called try another medicine")
         this.setState({medicineCode : null});
     }
 
@@ -41,11 +43,11 @@ export default class QrScannerUI extends PureComponent {
     }
 
     renderItem = () => {
-        // if(this.state.medicineCode) {
-        //     return <MedicineDetailUI medicineCode={this.state.medicineCode} tryAnotherMedicine={this.tryAnotherMedicine} navigation={this.props.navigation}/>;
-        // } else {
+        if(this.state.medicineCode) {
+            return <View></View>
+        } else {
             return this.renderScanner();
-        // }
+        }
     }
 
     render() {

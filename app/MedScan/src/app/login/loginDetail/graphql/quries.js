@@ -8,6 +8,8 @@ export const userByIdQuery = gql`
             email
             phoneNo
             address
+            imageUrl
+            dateOfBirth
             addressLat
             addressLong
         }
@@ -22,6 +24,8 @@ export const updateUser = gql`
             email
             phoneNo
             address
+            imageUrl
+            dateOfBirth
             addressLat
             addressLong
         }

@@ -1,0 +1,1 @@
+export const SPINNER_COL0R = "#ffffff";

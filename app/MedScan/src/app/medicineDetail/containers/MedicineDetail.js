@@ -16,6 +16,7 @@ class MedicineDetail extends PureComponent {
 
     componentDidMount() {
         this.props.fetchMedicineDetail(this.props.navigation.state.params.medicineCode);
+        this.props.setUserFromLocal();
     }
 
     navigateToLogin = () => {
@@ -23,17 +24,23 @@ class MedicineDetail extends PureComponent {
     }
 
     tryAnotherMedicine = () => {
-        this.props.navigation.navigate("Home");
+        if(this.props.navigation.state.params.tryAnotherMedicine) {
+            console.log("call try another medicine")
+            this.props.navigation.state.params.tryAnotherMedicine();
+        }
+        this.props.navigation.goBack();
     }
 
     render() {
-        return <MedicineDetailUI medicineCode={this.props.navigation.state.params.medicineCode} fetchMedicineDetails={this.props.fetchMedicineDetails} tryAnotherMedicine={this.tryAnotherMedicine} navigateToLogin={this.navigateToLogin}/>
+        return <MedicineDetailUI userDetails={this.props.userDetails} medicineCode={this.props.navigation.state.params.medicineCode} fetchMedicineDetails={this.props.fetchMedicineDetails} tryAnotherMedicine={this.tryAnotherMedicine} navigateToLogin={this.navigateToLogin}/>
     }
 }
 
 function mapStateToProps(state) {
     return {
-        fetchMedicineDetails: state.fetchMedicineDetails
+        fetchMedicineDetails: state.fetchMedicineDetails,
+        userDetailLoadingStatus: state.userProfileDetail.userDetailLoadingStatus,
+        userDetails: state.userProfileDetail.userDetails,
     }
 }
 

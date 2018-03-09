@@ -2,6 +2,19 @@ import React, { PureComponent } from 'react';
 import { Text, View, TouchableOpacity, FlatList, ScrollView} from 'react-native';
 import { basicStyles, basicCompStyles } from '../../../common/styles/styleSheet';
 import LoadingIndicator from '../../../common/components/LoadingIndicator';
+import colors from '../../../common/constants/colors';
+
+const getAge = (dateString) => {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
+}
 
 export default class MedicineDetailUI extends PureComponent {
     renderDetail = (title,description) => {
@@ -25,6 +38,7 @@ export default class MedicineDetailUI extends PureComponent {
 
     renderMedDetails = () => {
         return <View style={[basicCompStyles.fullSize, basicCompStyles.padding10, {alignItems: 'flex-start', justifyContent: 'flex-start'}]}>
+            {this.renderCompatability()}
             <Text style={[basicStyles.titleTextLight]}>{this.props.fetchMedicineDetails.detail.name}</Text>
             <ScrollView>
                 {this.renderDetail('Description', this.props.fetchMedicineDetails.detail.description)}
@@ -50,17 +64,29 @@ export default class MedicineDetailUI extends PureComponent {
         }
     }
 
+    renderCompatability = () => {
+        let buttonLabel = "Login to check compatability";
+        if(this.props.userDetails && this.props.userDetails.dateOfBirth) {
+            if(getAge(this.props.userDetails.dateOfBirth) >= this.props.fetchMedicineDetails.detail.ageLowerLimit) {
+                buttonLabel = "Compatable to you"
+            } else  {
+                buttonLabel = "Not compatable to you"
+            }
+        }
+        return <TouchableOpacity style={[basicStyles.curvedView, basicCompStyles.alignSelfS]} onPress={this.props.navigateToLogin}>
+            <Text style={basicStyles.buttonTextLight}>{buttonLabel}</Text>
+        </TouchableOpacity>
+    }
+
   render() {
     return <View style={basicCompStyles.darkBlueBG}>
-        <LoadingIndicator containerStyle={[basicStyles.deviceFullView, basicCompStyles.black50pc]} spinnerColor={"#ffffff"} loadingStatus={this.props.fetchMedicineDetails.loadingStatus}>
+        <LoadingIndicator containerStyle={[basicStyles.deviceFullView, basicCompStyles.black50pc]} spinnerColor={colors.SPINNER_COL0R} loadingStatus={this.props.fetchMedicineDetails.loadingStatus}>
             <View style={[basicCompStyles.darkBlueBG, basicCompStyles.statusBarPadding, {height: 70}]}>
                 <View style={[basicCompStyles.fullSize, basicCompStyles.padding10, basicCompStyles.flexColumnCS]}>
                     <Text style={[basicStyles.headerTextLight]}>Medicine details</Text>
                 </View>
             </View>
-            <TouchableOpacity style={basicStyles.curvedView} onPress={this.props.navigateToLogin}>
-                <Text style={basicStyles.buttonTextLight}>Login to check compatability</Text>
-            </TouchableOpacity>
+            
             {this.renderItems()}
             <TouchableOpacity style={basicStyles.curvedView} onPress={this.props.tryAnotherMedicine}>
                 <Text style={basicStyles.buttonTextLight}>Scan another medicine</Text>

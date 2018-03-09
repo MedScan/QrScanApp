@@ -41,7 +41,6 @@ export default class LoginDetailUI extends PureComponent {
         } else {
             const dob = new Date(this.state.date);
             const dobStr = dob.toISOString();
-            console.log("dob str", dobStr);
             this.props.saveUserDetails(this.state.name, this.state.email, this.state.imageUrl, dobStr);
             // save in db
         }
@@ -62,13 +61,15 @@ export default class LoginDetailUI extends PureComponent {
             <Text style={basicStyles.darkHeaderText}>{" "}</Text>
             <Text style={basicStyles.darkHeaderText}>{"Get bio details from"}</Text>
             <View style={basicCompStyles.flexRowNC}>
-                <TouchableOpacity onPress={() => googleLogin(this.setUserDetail)}>
+                <TouchableOpacity style={basicCompStyles.padding10pc} onPress={() => googleLogin(this.setUserDetail)}>
                     {/* <Icon style={basicCompStyles.padding10pc} name={IconName.GOOGLE_LOGO_ICON_NAME} size={60} color={Colors.HEADER_BACKGROUND_COLOR} />  */}
-                    <Text style={basicStyles.darkHeaderText}>{"G        "}</Text>
+                    <Image style={{width: 80, height: 80}} source={require('../../../../../images/google-logo.png')} />
+                    <Text style={basicStyles.darkHeaderText}>{"Google"}</Text>
                 </TouchableOpacity>
                 <Text style={basicStyles.darkHeaderText}>{"Or"}</Text>
-                <TouchableOpacity onPress={() => facebookLogin(this.setUserDetail)}>
-                    <Text style={basicStyles.darkHeaderText}>{"        F"}</Text>
+                <TouchableOpacity style={basicCompStyles.padding10pc} onPress={() => facebookLogin(this.setUserDetail)}>
+                    <Image style={{width: 80, height: 80}} source={require('../../../../../images/facebook-logo.png')} />
+                    <Text style={basicStyles.darkHeaderText}>{"Facebook"}</Text>
                     {/* <Icon style={basicCompStyles.padding10pc} name={IconName.FACEBOOK_LOGO_ICON_NAME} size={60} color={Colors.HEADER_BACKGROUND_COLOR} /> */}
                 </TouchableOpacity>
             </View>

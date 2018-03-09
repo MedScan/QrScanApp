@@ -9,7 +9,6 @@ export const googleLogin = async (saveUserDetails) => {
     } catch(e) {}
     
     const data = await GoogleSignin.signIn();
-    console.log(data);
     saveUserDetails(data.name, data.email, data.photo)
   } catch (e) {
     console.log(e);
