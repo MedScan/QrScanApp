@@ -13,20 +13,35 @@ export default class PhoneAuthUI extends Component {
   constructor(props) {
     super(props);
     this.unsubscribe = null;
-    this.state = {
-      message: null,
-      confirmResult: null,
-      isSignOut: false,
-    };
+    let isSignOut = false;
     this.renderMessage = this.renderMessage.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
     this.confirmCode = this.confirmCode.bind(this)
     this.changeNumber = this.changeNumber.bind(this)
     this.resendCode = this.resendCode.bind(this)
+    console.log("in const")
+    console.log("in rec props")
+    if(firebase.auth().currentUser) {
+        console.log("has user")
+        const { params } = props.navigation.state;
+        if(params && params.isSignOut) {
+            console.log("has signing out")
+            this.signOut(true);
+            
+                isSignOut = true;
+            
+        }
+    }
+    this.state = {
+      message: null,
+      confirmResult: null,
+      isSignOut: isSignOut,
+    };
   }
 
   componentDidMount() {
+    console.log("in mount")
     this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         user.getIdToken(false).then(token => {
@@ -52,18 +67,7 @@ export default class PhoneAuthUI extends Component {
   }
 
     componentWillReceiveProps() {
-        console.log("in rec props")
-        if(firebase.auth().currentUser) {
-            console.log("has user")
-            const { params } = this.props.navigation.state;
-            if(params && params.isSignOut) {
-                console.log("has signing out")
-                this.signOut();
-                this.setState({
-                    isSignOut: true,
-                });
-            }
-        }
+           
     }
 
   componentWillUnmount() {
@@ -112,7 +116,7 @@ export default class PhoneAuthUI extends Component {
     }
   };
 
-  signOut = () => {
+  signOut = (isNotUpdateState) => {
     this.props.setPhoneNumber('')
     this.props.clearTokenId()
     firebase.auth().signOut();
@@ -122,10 +126,13 @@ export default class PhoneAuthUI extends Component {
     // try {
     //   GoogleSignin.signOut()
     // } catch(e) {}
-    this.setState({
-      message: null,
-      confirmResult: null,
-    });
+    if(!isNotUpdateState) {
+      this.setState({
+        message: null,
+        confirmResult: null,
+      });
+    }
+    
   }
 
   renderMessage = (message) => {
@@ -145,6 +152,7 @@ export default class PhoneAuthUI extends Component {
     const { confirmResult, message, isSignOut } = this.state;
     const { children, userPhoneNumber, graphcoolTokenStatus } = this.props;
     this.renderMessage(message)
+    console.log("in render" + `--${isSignOut}--${graphcoolTokenStatus}`)
     return (
       <View style={basicStyles.deviceFullViewBgCCC}>
         {(isSignOut || graphcoolTokenStatus != 2) && !confirmResult && <PhoneNumberInput signIn={this.signIn} phoneNumber={userPhoneNumber}/>}

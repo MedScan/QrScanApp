@@ -7,5 +7,5 @@ export const DARK_TEXT_COLOR = "#673AB7";
 export const PLACEHOLDER_COLOR = "#d4c0f7";
 export const UNDERLINE_COLOR = "#9772d8";
 export const CURSOR_COLOR = "#d4c0f7";
-export const REJECT_COLOR = "#c13f07";
-export const ACCEPT_COLOR = "#0b5b1c";
+export const REJECT_COLOR = "#e00f0f";
+export const ACCEPT_COLOR = "#2aaa33";

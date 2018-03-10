@@ -32,7 +32,7 @@ export default class QrScannerUI extends PureComponent {
             <QrCodeScanner style={basicStyles.deviceFullView} onScanFinished={this.onScanFinished}/>
             <View style={basicStyles.absoluteTopFullDeviceWidth}>
                 <View style={basicStyles.innerView}>
-                    <Text style={basicStyles.titleTextLight}>Welcome to MedScan</Text>
+                    <Text style={basicStyles.titleTextLight}>Welcome to MedSoi</Text>
                     <Text style={[basicStyles.mediumTextLight, {paddingTop: 20, textAlign: 'center'}]}>Make sure the QRcode is clearly visible to rear camera</Text>
                 </View>
             </View> 
