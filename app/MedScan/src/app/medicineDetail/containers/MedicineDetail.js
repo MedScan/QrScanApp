@@ -20,7 +20,11 @@ class MedicineDetail extends PureComponent {
     }
 
     navigateToLogin = () => {
-        this.props.navigation.navigate("Login");
+        if(this.props.userDetails && this.props.userDetails.phoneNo) {
+            this.props.navigation.navigate("Profile");
+        } else {
+            this.props.navigation.navigate("Login");
+        }
     }
 
     tryAnotherMedicine = () => {
@@ -28,7 +32,10 @@ class MedicineDetail extends PureComponent {
             console.log("call try another medicine")
             this.props.navigation.state.params.tryAnotherMedicine();
         }
-        this.props.navigation.goBack();
+        this.props.navigation.dispatch({
+            routeName: 'Home',
+            type: 'GoToRoute',
+        })
     }
 
     render() {

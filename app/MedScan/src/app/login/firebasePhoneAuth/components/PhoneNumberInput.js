@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
-import { View, Button, Text, TextInput, Image, TouchableOpacity } from 'react-native';
-// import Icon from 'react-native-vector-icons/Ionicons';
-import { basicStyles, basicCompStyles } from '../../../../StyleSheets/styles';
-import * as Labels from '../../../../Constants/Labels';
-import * as Colors from '../../../../Constants/Colors';
-import * as IconName from '../../../../Constants/IconName';
+import { View, Button, Text, TextInput, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import * as Labels from '../../../../common/constants/labels';
+import { basicCompStyles, basicStyles } from '../../../../common/styles/styleSheet';
+import colors from '../../../../common/constants/colors';
 
 export default class PhoneNumberInput extends PureComponent {
 
@@ -15,25 +13,27 @@ export default class PhoneNumberInput extends PureComponent {
 
     render() {
         return (
-            <View style={[basicStyles.fullContentNC, basicCompStyles.padding10pc]}>
-                <Text style={basicStyles.darkHeaderText}>{Labels.LOGIN_TITLE}</Text>
-                {/* <Icon style={basicCompStyles.padding10pc} name={IconName.LOG_IN_ICON_NAME} size={100} color={Colors.HEADER_BACKGROUND_COLOR} /> */}
-                <Text style={[basicStyles.darkSmallText, basicCompStyles.alignSelfS]}>{Labels.ENTER_PHONE_NUMBER}</Text>
+            <KeyboardAvoidingView style={[basicStyles.deviceFullViewBgCCC, basicCompStyles.paddingLR10pc]} behavior="padding" >
+                <Text style={[basicStyles.headerBoldTextLight]}>{Labels.LOGIN_TITLE}</Text>
+                <View style={basicCompStyles.padding10pc}>
+                    <Image style={{width: 150, height: 150}} source={require('../../../../../images/login-icon.png')} />
+                </View>
+                <Text style={[basicStyles.smallTextLight, basicCompStyles.alignSelfS]}>{Labels.ENTER_PHONE_NUMBER}</Text>
                 <TextInput
                     onSubmitEditing={() => this.props.signIn(this.state.phoneNumber)}
-                    underlineColorAndroid={Colors.DARK_TEXT_COLOR} 
-                    selectionColor={Colors.DARK_TEXT_COLOR}
+                    underlineColorAndroid={colors.UNDERLINE_COLOR} 
+                    selectionColor={colors.CURSOR_COLOR}
                     returnKeyType={"send"}
                     style={[basicCompStyles.darkTextInput, basicCompStyles.marginBottom15]}
                     onChangeText={value => this.setState({ phoneNumber: value })}
                     placeholder={Labels.PHONE_NUMBER_PLACEHOLDER}
-                    placeholderTextColor={Colors.IN_ACTIVE_ICON_COLOR} 
+                    placeholderTextColor={colors.PLACEHOLDER_COLOR} 
                     value={this.state.phoneNumber}
                 />
-                <TouchableOpacity style={basicStyles.darkButton} onPress={() => this.props.signIn(this.state.phoneNumber)} >
-                    <Text style={basicStyles.headerText}>{Labels.SEND_VERIFICATION_CODE}</Text>
+                <TouchableOpacity style={basicStyles.smoothSquareButton} onPress={() => this.props.signIn(this.state.phoneNumber)} >
+                    <Text style={basicStyles.headerBoldTextDark}>{Labels.SEND_VERIFICATION_CODE}</Text>
                 </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
      

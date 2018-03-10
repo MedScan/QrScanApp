@@ -1,0 +1,12 @@
+export const ENTER_PHONE_NUMBER = "Enter phone number";
+export const PHONE_NUMBER_PLACEHOLDER = "Phone number ... ";
+export const DEFAULT_PHONE_CODE = "+91";
+export const ENTER_VERIFICATION_CODE = "Enter received verification code";
+export const VERIFICATION_CODE_PLACEHOLDER = "Verification code ... ";
+export const LOGIN_TITLE = "Login to your profile";
+export const VERIFY_PHONE_TITLE = "Phone number verification";
+export const RESEND_CODE = "Resend code";
+export const CONFIRM_CODE = "Confirm code";
+export const SEND_VERIFICATION_CODE = "Send verification code";
+export const CHANGE_PHONE_NUMBER = "Change phone number";
+export const CONTINUE = "Continue";

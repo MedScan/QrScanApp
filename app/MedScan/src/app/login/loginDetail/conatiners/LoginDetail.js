@@ -9,10 +9,17 @@ class LoginDetail extends PureComponent {
     constructor(props) {
         super(props)
         this.saveUserDetails = this.saveUserDetails.bind(this)
+        if(props.userDetails && props.userDetails.phoneNo != null) {
+            props.navigation.navigate("Profile");
+        } else {
+            props.getUserById(this.props.userId)
+        }
     }
 
-    componentWillMount() {
-        this.props.getUserById(this.props.userId)
+    componentWillReceiveProps(props) {
+        if(props.userDetails.phoneNo != null) {
+            props.navigation.navigate("Profile");
+        }
     }
 
     saveUserDetails = (name, email, photoUrl, dob) => {

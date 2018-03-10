@@ -66,14 +66,17 @@ export default class MedicineDetailUI extends PureComponent {
 
     renderCompatability = () => {
         let buttonLabel = "Login to check compatability";
+        let color = colors.DARK_BG
         if(this.props.userDetails && this.props.userDetails.dateOfBirth) {
             if(getAge(this.props.userDetails.dateOfBirth) >= this.props.fetchMedicineDetails.detail.ageLowerLimit) {
                 buttonLabel = "Compatable to you"
+                color = colors.ACCEPT_COLOR
             } else  {
                 buttonLabel = "Not compatable to you"
+                color = colors.REJECT_COLOR
             }
         }
-        return <TouchableOpacity style={[basicStyles.curvedView, basicCompStyles.alignSelfS]} onPress={this.props.navigateToLogin}>
+        return <TouchableOpacity style={[basicStyles.curvedView, basicCompStyles.alignSelfS, {backgroundColor : color}]} onPress={this.props.navigateToLogin}>
             <Text style={basicStyles.buttonTextLight}>{buttonLabel}</Text>
         </TouchableOpacity>
     }

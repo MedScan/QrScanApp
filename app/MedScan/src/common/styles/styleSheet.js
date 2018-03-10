@@ -1,6 +1,6 @@
 import Dimensions from 'Dimensions';
 import { StyleSheet , Platform} from 'react-native';
-import * as Colors from '../constants/colors';
+import colors, * as Colors from '../constants/colors';
 import * as Sizes from '../constants/sizes';
 
 export const fullHeight = Dimensions.get('window').height;
@@ -74,6 +74,16 @@ export const basicCompStyles = StyleSheet.create({
     padding10pc: {
         padding: width10pc
     },
+    paddingLR10pc: {
+        paddingLeft: width10pc,
+        paddingRight: width10pc
+    },
+    paddingT10pc: {
+        paddingTop: width10pc
+    },
+    paddingB10pc: {
+        paddingBottom: width10pc
+    },
     padding10: {
         padding: 10
     },
@@ -82,6 +92,9 @@ export const basicCompStyles = StyleSheet.create({
     },
     margin10: {
         margin: 10
+    },
+    margin10pc: {
+        margin: width10pc
     },
         
 
@@ -93,6 +106,12 @@ export const basicCompStyles = StyleSheet.create({
         position: 'absolute',
         bottom: 20,
         right: 20
+    },
+    absoluteBottomLeftRight0: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0
     },
     absoluteBottom20: {
         position: 'absolute',
@@ -130,6 +149,9 @@ export const basicCompStyles = StyleSheet.create({
     darkerBlueBG: {
         backgroundColor: "#3a2068"
     },
+    lighterBlueBG: {
+        backgroundColor: colors.LIGHTER_BG
+    },
     
     
     Padding20: {
@@ -152,6 +174,9 @@ export const basicCompStyles = StyleSheet.create({
     curvedBorder25: {
         borderRadius: 25
     },
+    defaultBorderRadius: {
+        borderRadius: 10
+    },
 
     bigHeaderText: {
         fontSize: 30, 
@@ -162,9 +187,15 @@ export const basicCompStyles = StyleSheet.create({
         fontSize: 20, 
         color: 'white'
     },
-    mediumBoldText: {
-        fontSize: 25, 
+    darkHeaderBoldText: {
+        fontSize: 20, 
         fontWeight: 'bold', 
+        color: colors.DARK_TEXT_COLOR
+    },
+    headerBoldText: {
+        fontSize: 20, 
+        fontWeight: 'bold', 
+        color: 'white'
     },
     titleText: {
         fontSize: 16, 
@@ -172,10 +203,17 @@ export const basicCompStyles = StyleSheet.create({
     },
     smallText: {
         fontSize: 12, 
+        color: 'white'
     },
     mediumText: {
         fontSize: 14, 
         color: 'white'
+    },
+
+    darkTextInput: {
+        height: 40,
+        color: colors.INPUT_COL0R, 
+        alignSelf: 'stretch'
     }
 });
 
@@ -187,6 +225,11 @@ export const basicStyles = {
         sizes.fullViewSize,
         basicCompStyles.darkerBlueBG,
         basicCompStyles.flexColumnCC,
+    ],
+    deviceFullViewBgCNC: [
+        sizes.fullViewSize,
+        basicCompStyles.darkerBlueBG,
+        basicCompStyles.flexColumnNC,
     ],
     absoluteTopFullDeviceWidth: [
         sizes.fullDeviceWidth,
@@ -211,6 +254,16 @@ export const basicStyles = {
         basicCompStyles.headerText,
 
     ],
+    headerBoldTextDark: [
+        fonts.default,
+        basicCompStyles.darkHeaderBoldText,
+
+    ],
+    headerBoldTextLight: [
+        fonts.default,
+        basicCompStyles.headerBoldText,
+
+    ],
     buttonTextLight: [
         fonts.default,
         basicCompStyles.titleText,
@@ -219,6 +272,11 @@ export const basicStyles = {
     mediumTextLight: [
         fonts.default,
         basicCompStyles.mediumText,
+
+    ],
+    smallTextLight: [
+        fonts.default,
+        basicCompStyles.smallText,
 
     ],
     innerView: [
@@ -231,5 +289,16 @@ export const basicStyles = {
         basicCompStyles.curvedBorder25,
         basicCompStyles.flexColumnCC,
         basicCompStyles.padding10,
-    ]
+    ],
+
+
+    smoothSquareButton: [
+        basicCompStyles.lighterBlueBG,
+        basicCompStyles.padding10,
+        basicCompStyles.defaultBorderRadius,
+    ],
+    squareButton: [
+        basicCompStyles.lighterBlueBG,
+        basicCompStyles.padding10,
+    ],
 }

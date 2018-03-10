@@ -1,13 +1,11 @@
 import React, { PureComponent } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { basicStyles, basicCompStyles } from '../../../../StyleSheets/styles';
+import { View, Text, TextInput, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native';
+import { basicStyles, basicCompStyles } from '../../../../common/styles/styleSheet';
 import DatePicker from 'react-native-datepicker'
-import * as Labels from '../../../../Constants/Labels';
-import * as Colors from '../../../../Constants/Colors';
-import * as IconName from '../../../../Constants/IconName';
 import { googleLogin } from './FirebaseGoogleAuth';
 import { facebookLogin } from './FirebaseFacebookAuth';
 import Toast from 'react-native-simple-toast';
+import colors from '../../../../common/constants/colors';
 
 const validateEmail = (emailInput) => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
@@ -56,24 +54,21 @@ export default class LoginDetailUI extends PureComponent {
 
     render() {
         const { signOut, saveUserDetails } = this.props;
-        return <View style={[basicStyles.fullContent, basicCompStyles.padding10pc]}>
-            <Text style={basicStyles.darkHeaderText}>{"Congrats, Logged in successfully!!!"}</Text>
-            <Text style={basicStyles.darkHeaderText}>{" "}</Text>
-            <Text style={basicStyles.darkHeaderText}>{"Get bio details from"}</Text>
+        return <KeyboardAvoidingView style={[basicStyles.deviceFullViewBgCCC, basicCompStyles.paddingLR10pc]} behavior="padding">
+            <Text style={basicStyles.headerBoldTextLight}>{"Congrats, Logged in successfully!!!"}</Text>
+            <Text style={[basicStyles.headerTextLight, basicCompStyles.paddingT10pc]}>{"Get bio details from"}</Text>
             <View style={basicCompStyles.flexRowNC}>
                 <TouchableOpacity style={basicCompStyles.padding10pc} onPress={() => googleLogin(this.setUserDetail)}>
-                    {/* <Icon style={basicCompStyles.padding10pc} name={IconName.GOOGLE_LOGO_ICON_NAME} size={60} color={Colors.HEADER_BACKGROUND_COLOR} />  */}
                     <Image style={{width: 80, height: 80}} source={require('../../../../../images/google-logo.png')} />
-                    <Text style={basicStyles.darkHeaderText}>{"Google"}</Text>
+                    <Text style={[basicStyles.mediumTextLight, {textAlign: 'center', paddingTop: 5}]}>{"Google"}</Text>
                 </TouchableOpacity>
-                <Text style={basicStyles.darkHeaderText}>{"Or"}</Text>
+                <Text style={basicStyles.headerTextLight}>{"Or"}</Text>
                 <TouchableOpacity style={basicCompStyles.padding10pc} onPress={() => facebookLogin(this.setUserDetail)}>
                     <Image style={{width: 80, height: 80}} source={require('../../../../../images/facebook-logo.png')} />
-                    <Text style={basicStyles.darkHeaderText}>{"Facebook"}</Text>
-                    {/* <Icon style={basicCompStyles.padding10pc} name={IconName.FACEBOOK_LOGO_ICON_NAME} size={60} color={Colors.HEADER_BACKGROUND_COLOR} /> */}
+                    <Text style={[basicStyles.mediumTextLight, {textAlign: 'center', paddingTop: 5}]}>{"Facebook"}</Text>
                 </TouchableOpacity>
             </View>
-            <Text style={basicStyles.darkHeaderText}>{"Or enter manually"}</Text> 
+            <Text style={basicStyles.mediumTextLight}>{"Or enter manually"}</Text> 
             <TextInput
                 ref="nameInput"
                 onSubmitEditing={(event) => { 
@@ -81,12 +76,12 @@ export default class LoginDetailUI extends PureComponent {
                 }}
                 returnKeyType={"next"}
                 autoCorrect={false}
-                underlineColorAndroid={Colors.DARK_TEXT_COLOR} 
-                selectionColor={Colors.DARK_TEXT_COLOR}
+                underlineColorAndroid={colors.UNDERLINE_COLOR} 
+                selectionColor={colors.CURSOR_COLOR}
                 style={[basicCompStyles.darkTextInput, basicCompStyles.marginBottom15]}
                 onChangeText={value => this.setState({ name : value })}
                 placeholder={"Name"}
-                placeholderTextColor={Colors.IN_ACTIVE_ICON_COLOR} 
+                placeholderTextColor={colors.PLACEHOLDER_COLOR} 
                 value={this.state.name}
             />
             <TextInput
@@ -94,12 +89,12 @@ export default class LoginDetailUI extends PureComponent {
                 onSubmitEditing={this.saveManualEntry}
                 returnKeyType={"done"}
                 autoCorrect={false}
-                underlineColorAndroid={Colors.DARK_TEXT_COLOR} 
-                selectionColor={Colors.DARK_TEXT_COLOR}
+                underlineColorAndroid={colors.UNDERLINE_COLOR} 
+                selectionColor={colors.CURSOR_COLOR}
                 style={[basicCompStyles.darkTextInput, basicCompStyles.marginBottom15]}
                 onChangeText={value => this.setState({ email: value })}
                 placeholder={"Email"}
-                placeholderTextColor={Colors.IN_ACTIVE_ICON_COLOR} 
+                placeholderTextColor={colors.PLACEHOLDER_COLOR} 
                 value={this.state.email}
             />
             <DatePicker
@@ -114,8 +109,8 @@ export default class LoginDetailUI extends PureComponent {
                 // showIcon={false}
                 customStyles={{
                     dateInput: {borderWidth: 0, marginLeft: 36, justifyContent: 'center'},
-                    dateText: {color : Colors.IN_ACTIVE_ICON_COLOR},
-                    placeholderText: {color : Colors.IN_ACTIVE_ICON_COLOR},
+                    dateText: {color : "white"},
+                    placeholderText: {color : colors.PLACEHOLDER_COLOR},
                     dateIcon: {
                         position: 'absolute',
                         left: 0,
@@ -126,14 +121,14 @@ export default class LoginDetailUI extends PureComponent {
                 }}
                 onDateChange={(date) => {this.setState({date: date})}}
             />
-            <TouchableOpacity style={[basicStyles.darkButton, basicCompStyles.alignSelfS]} onPress={this.saveManualEntry} >
-                <Text style={[basicStyles.headerText, basicCompStyles.alignSelfC]}>{"Save"}</Text>
+            <TouchableOpacity style={[basicStyles.smoothSquareButton, basicCompStyles.alignSelfS]} onPress={this.saveManualEntry} >
+                <Text style={[basicStyles.headerBoldTextDark, {textAlign: 'center'}]}>{"Save"}</Text>
             </TouchableOpacity> 
-            <TouchableOpacity style={[basicStyles.darkButtonRad0, basicCompStyles.absoluteBottomLeftRight0]} onPress={signOut} >
-                <Text style={[basicStyles.headerText, basicCompStyles.alignSelfC]}>{"Sign Out"}</Text>
+            <TouchableOpacity style={[basicStyles.squareButton, basicCompStyles.absoluteBottomLeftRight0]} onPress={signOut} > 
+                <Text style={[basicStyles.headerBoldTextDark, basicCompStyles.alignSelfC, {textAlign: 'center'}]}>{"Sign Out"}</Text>
             </TouchableOpacity> 
-        </View>
+        </KeyboardAvoidingView>
     }
 }
 
- 
+ //

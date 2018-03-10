@@ -6,8 +6,8 @@ import Toast from 'react-native-simple-toast';
 // import { GoogleSignin } from 'react-native-google-signin';
 import PhoneNumberInput from './PhoneNumberInput';
 import VerificationCodeInput from './VerificationCodeInput';
-import { basicCompStyles } from '../../../../StyleSheets/styles';
 import LoginDetail from '../../loginDetail';
+import { basicStyles } from '../../../../common/styles/styleSheet';
 
 export default class PhoneAuthUI extends Component {
   constructor(props) {
@@ -16,6 +16,7 @@ export default class PhoneAuthUI extends Component {
     this.state = {
       message: null,
       confirmResult: null,
+      isSignOut: false,
     };
     this.renderMessage = this.renderMessage.bind(this)
     this.signIn = this.signIn.bind(this)
@@ -28,9 +29,12 @@ export default class PhoneAuthUI extends Component {
   componentDidMount() {
     this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.props.setPhoneNumber(user._user.phoneNumber)
         user.getIdToken(false).then(token => {
+            this.props.setPhoneNumber(user._user.phoneNumber)
           this.props.setTokenId(token);
+          this.setState({
+            isSignOut: false,
+          });
         }).catch(error => {
           this.setState({
             message: 'Unable to get user details',
@@ -44,7 +48,23 @@ export default class PhoneAuthUI extends Component {
         });
       }
     });
+    
   }
+
+    componentWillReceiveProps() {
+        console.log("in rec props")
+        if(firebase.auth().currentUser) {
+            console.log("has user")
+            const { params } = this.props.navigation.state;
+            if(params && params.isSignOut) {
+                console.log("has signing out")
+                this.signOut();
+                this.setState({
+                    isSignOut: true,
+                });
+            }
+        }
+    }
 
   componentWillUnmount() {
      if (this.unsubscribe) this.unsubscribe();
@@ -122,14 +142,14 @@ export default class PhoneAuthUI extends Component {
   }
 
   render() {
-    const { confirmResult, message } = this.state;
+    const { confirmResult, message, isSignOut } = this.state;
     const { children, userPhoneNumber, graphcoolTokenStatus } = this.props;
     this.renderMessage(message)
     return (
-      <View style={basicCompStyles.fullSize}>
-        {graphcoolTokenStatus != 2 && !confirmResult && <PhoneNumberInput signIn={this.signIn} phoneNumber={userPhoneNumber}/>}
-        {graphcoolTokenStatus != 2 && confirmResult && <VerificationCodeInput confirmCode={this.confirmCode} resendCode={this.resendCode} changeNumber={this.changeNumber}/>}
-        {graphcoolTokenStatus == 2 && <LoginDetail signOut={this.signOut} navigation={this.props.navigation}></LoginDetail>}
+      <View style={basicStyles.deviceFullViewBgCCC}>
+        {(isSignOut || graphcoolTokenStatus != 2) && !confirmResult && <PhoneNumberInput signIn={this.signIn} phoneNumber={userPhoneNumber}/>}
+        {(isSignOut || graphcoolTokenStatus != 2) && confirmResult && <VerificationCodeInput confirmCode={this.confirmCode} resendCode={this.resendCode} changeNumber={this.changeNumber}/>}
+        {!isSignOut && graphcoolTokenStatus == 2 && <LoginDetail signOut={this.signOut} navigation={this.props.navigation}></LoginDetail>}
       </View>
     );
   }

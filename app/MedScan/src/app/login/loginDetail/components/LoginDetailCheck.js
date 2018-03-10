@@ -10,12 +10,6 @@ export default class LoginDetailCheck extends PureComponent {
         return <LoginDetailUI signOut={signOut} saveUserDetails={saveUserDetails}/>
     }
 
-    componentWillReceiveProps(props) {
-        if(props.userDetails.phoneNo != null) {
-            props.navigation.goBack();
-        }
-    }
-
     render() {
         const { children, signOut, userDetails, loadingStatus, saveUserDetails } = this.props;
         return <LoadingIndicator loadingStatus={loadingStatus} spinnerColor={colors.SPINNER_COL0R} containerStyle={basicStyles.deviceFullViewBgCCC}>
