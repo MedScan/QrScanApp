@@ -67,6 +67,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "957683561313-ulq3bo73qd5ar2a7or8mk0kkr8urllb1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.medsoi",
+            "certificate_hash": "e4afb8b2fec4c4dd5fb210520dd7edcdef97afa4"
+          }
+        },
+        {
           "client_id": "957683561313-n1n6sc9ma4c0d04gfjl39t1h2bmq1n68.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
